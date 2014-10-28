@@ -1,8 +1,5 @@
-﻿using System;
-using System.CodeDom;
-using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using YahtzeeGame;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yahtzee;
 
 namespace Yatzee
 {
@@ -20,381 +17,168 @@ namespace Yatzee
 		[TestMethod]
 		public void ScoreCategoryOnes()
 		{
-			// arrange
-			
 			var category = new CategoryOne();
 
-			// act
-			var result = _yahtzee.Score("1,2,3,4,5", category);
-
-			// assert
-			Assert.AreEqual(1, result);
+			Assert.AreEqual(0, _yahtzee.Score("2,2,3,4,5", category));
+			Assert.AreEqual(1, _yahtzee.Score("1,2,3,4,5", category));
+			Assert.AreEqual(2, _yahtzee.Score("1,1,3,4,5", category));
+			Assert.AreEqual(3, _yahtzee.Score("1,1,1,4,5", category));
+			Assert.AreEqual(4, _yahtzee.Score("1,1,1,1,5", category));
+			Assert.AreEqual(5, _yahtzee.Score("1,1,1,1,1", category));
 		}
 
 		[TestMethod]
-		public void ScoreCategoryTwos_ReturnsCorrectScore()
+		public void ScoreCategoryTwos()
 		{
-			// arrange
 			var category = new CategoryTwo();
 
-			// act
-			var result = _yahtzee.Score("1,2,3,2,5", category);
-			
-			// assert
-			Assert.AreEqual(4, result);		
-		}		
+			Assert.AreEqual(0, _yahtzee.Score("1,1,3,4,5", category));
+			Assert.AreEqual(2, _yahtzee.Score("2,1,3,4,5", category));
+			Assert.AreEqual(4, _yahtzee.Score("1,2,2,4,5", category));
+			Assert.AreEqual(6, _yahtzee.Score("1,2,2,2,5", category));
+			Assert.AreEqual(8, _yahtzee.Score("2,2,2,2,5", category));
+			Assert.AreEqual(10, _yahtzee.Score("2,2,2,2,2", category));	
+		}			
 		
 		[TestMethod]
-		public void ScoreCategoryTwos_NoTwosReturnsZero()
+		public void ScoreCategoryThrees()
 		{
-			// arrange
-			var category = new CategoryTwo();
-
-			// act
-			var result = _yahtzee.Score("5,1,3,6,5", category);
-			
-			// assert
-			Assert.AreEqual(0, result);		
-		}		
-		
-		[TestMethod]
-		public void ScoreCategoryThrees_ReturnsCorrectScore()
-		{
-			// arrange
 			var category = new CategoryThree();
-
-			// act
-			var result = _yahtzee.Score("5,1,3,6,5", category);
-			
-			// assert
-			Assert.AreEqual(3, result);		
+			Assert.AreEqual(0, _yahtzee.Score("1,1,4,4,5", category));
+			Assert.AreEqual(3, _yahtzee.Score("2,1,3,4,5", category));
+			Assert.AreEqual(6, _yahtzee.Score("3,2,3,4,5", category));
+			Assert.AreEqual(9, _yahtzee.Score("3,3,2,3,6", category));
+			Assert.AreEqual(12, _yahtzee.Score("3,3,2,3,3", category));
+			Assert.AreEqual(15, _yahtzee.Score("3,3,3,3,3", category));	
 		}	
 		
 		[TestMethod]
-		public void ScoreCategoryThrees_NoThrees_ReturnsZero()
+		public void ScoreCategoryFours()
 		{
-			// arrange
-			var category = new CategoryThree();
-
-			// act
-			var result = _yahtzee.Score("5,1,2,6,5", category);
-			
-			// assert
-			Assert.AreEqual(0, result);		
-		}
-
-		[TestMethod]
-		public void ScoreCategoryFours_ReturnsCorrectScore()
-		{
-			// arrange
 			var category = new CategoryFour();
-
-			// act
-			var result = _yahtzee.Score("2,3,4,4,2", category);
-
-			// assert
-			Assert.AreEqual(8, result);
-		}		
+			Assert.AreEqual(0, _yahtzee.Score("1,1,3,2,5", category));
+			Assert.AreEqual(4, _yahtzee.Score("2,1,3,4,5", category));
+			Assert.AreEqual(8, _yahtzee.Score("3,4,3,4,5", category));
+			Assert.AreEqual(12, _yahtzee.Score("3,4,4,3,4", category));
+			Assert.AreEqual(16, _yahtzee.Score("4,4,4,3,4", category));
+			Assert.AreEqual(20, _yahtzee.Score("4,4,4,4,4", category));	
+		}	
 		
 		[TestMethod]
-		public void ScoreCategoryFours_NoFours_ReturnsZero()
+		public void ScoreCategoryFives()
 		{
-			// arrange
-			var category = new CategoryFour();
-
-			// act
-			var result = _yahtzee.Score("2,3,2,1,2", category);
-
-			// assert
-			Assert.AreEqual(0, result);
-		}
-
-		[TestMethod]
-		public void ScoreCategoryFives_ReturnsSum()
-		{
-			// arrange 
 			var category = new CategoryFive();
-
-			// act
-			var result = _yahtzee.Score("5,5,5,2,1", category);
-
-			// assert
-			Assert.AreEqual(15, result);
+			Assert.AreEqual(0, _yahtzee.Score("1,1,4,4,2", category));
+			Assert.AreEqual(5, _yahtzee.Score("2,1,3,4,5", category));
+			Assert.AreEqual(10, _yahtzee.Score("3,2,5,4,5", category));
+			Assert.AreEqual(15, _yahtzee.Score("5,5,5,3,6", category));
+			Assert.AreEqual(20, _yahtzee.Score("3,5,5,5,5", category));
+			Assert.AreEqual(25, _yahtzee.Score("5,5,5,5,5", category));	
 		}		
 		
 		[TestMethod]
-		public void ScoreCategoryFives_NoFives_ReturnsZero()
+		public void ScoreCategorySix()
 		{
-			// arrange 
-			var category = new CategoryFive();
-
-			// act
-			var result = _yahtzee.Score("4,2,3,2,1", category);
-
-			// assert
-			Assert.AreEqual(0, result);
-		}		
-		
-		[TestMethod]
-		public void ScoreCategorySixes_ReturnsSum()
-		{
-			// arrange 
 			var category = new CategorySix();
-
-			// act
-			var result = _yahtzee.Score("5,6,6,6,6", category);
-
-			// assert
-			Assert.AreEqual(24, result);
+			Assert.AreEqual(0, _yahtzee.Score("1,1,4,4,2", category));
+			Assert.AreEqual(6, _yahtzee.Score("2,1,3,6,5", category));
+			Assert.AreEqual(12, _yahtzee.Score("3,6,6,4,5", category));
+			Assert.AreEqual(18, _yahtzee.Score("6,6,5,3,6", category));
+			Assert.AreEqual(24, _yahtzee.Score("3,6,6,6,6", category));
+			Assert.AreEqual(30, _yahtzee.Score("6,6,6,6,6", category));	
 		}		
-		
+				
 		[TestMethod]
-		public void ScoreCategoryFives_NoSixes_ReturnsZero()
+		public void ScoreCategoryPairs()
 		{
-			// arrange 
-			var category = new CategorySix();
-
-			// act
-			var result = _yahtzee.Score("4,2,3,2,1", category);
-
-			// assert
-			Assert.AreEqual(0, result);
-		}
-		
-		[TestMethod]
-		public void ScoreCategoryPairs_ReturnsValueOfHighestPair()
-		{
-			// arrange
 			var category = new CategoryPair();
-
-			// act
-			var result = _yahtzee.Score("3,3,3,4,4", category);
-			
-			// assert
-			Assert.AreEqual(8, result);		
+			Assert.AreEqual(0, _yahtzee.Score("1,2,3,4,5", category));
+			Assert.AreEqual(2, _yahtzee.Score("2,1,1,6,5", category));
+			Assert.AreEqual(4, _yahtzee.Score("1,1,2,2,5", category));
+			Assert.AreEqual(12, _yahtzee.Score("6,6,5,5,5", category));
 		}		
-		
-		[TestMethod]
-		public void ScoreCategoryPairs_ReturnsZeroIfNoPairsRolled()
-		{
-			// arrange
-			var category = new CategoryPair();
-
-			// act
-			var result = _yahtzee.Score("3,1,2,5,6", category);
-			
-			// assert
-			Assert.AreEqual(0, result);		
-		}
 
 		[TestMethod]
-		public void ScoreTwoPairs_TwoPairsRolled_ReturnsSumOfBothPairs()
+		public void ScoreTwoPairs()
 		{
-			// arrange 
 			var category = new CategoryTwoPairs();
-
-			// act
-			var result = _yahtzee.Score("1,1,2,3,3", category);
-
-			// assert
-			Assert.AreEqual(8, result);
+			Assert.AreEqual(0, _yahtzee.Score("1,2,3,4,5", category));
+			Assert.AreEqual(0, _yahtzee.Score("1,1,1,1,5", category));
+			Assert.AreEqual(6, _yahtzee.Score("2,1,1,2,5", category));
+			Assert.AreEqual(22, _yahtzee.Score("6,6,5,5,5", category));
 		}		
-		
-		[TestMethod]
-		public void ScoreTwoPairs_LessThanTwoPairsRolled_ReturnsZero()
-		{
-			// arrange 
-			var category = new CategoryTwoPairs();
-
-			// act
-			var result = _yahtzee.Score("1,4,2,3,3", category);
-
-			// assert
-			Assert.AreEqual(0, result);
-		}
 
 		[TestMethod]
-		public void ScoreThreeOfAKind_ThreeOfAKindRolled_RetursSumOfThreeOfKind()
-		{
-			// arrange 
+		public void ScoreThreeOfAKind()
+		{ 
 			var category = new CategoryThreeOfAKind();
-
-			// act
-			var result = _yahtzee.Score("3,3,3,4,5", category);
-
-			// assert
-
-			Assert.AreEqual(9, result);
+			Assert.AreEqual(0, _yahtzee.Score("1,2,3,4,5", category));
+			Assert.AreEqual(3, _yahtzee.Score("1,1,1,1,5", category));
+			Assert.AreEqual(3, _yahtzee.Score("1,1,1,1,1", category));
+			Assert.AreEqual(18, _yahtzee.Score("6,6,6,5,5", category));
 		}
 
 		[TestMethod]
-		public void ScoreThreeOfAKind_ThreeOfAKindNotRolled_RetursZero()
+		public void ScoreFourOfAKind()
 		{
-			// arrange 
-			var category = new CategoryThreeOfAKind();
-
-			// act
-			var result = _yahtzee.Score("3,3,4,4,5", category);
-
-			// assert
-			Assert.AreEqual(0, result);
-		}
-
-		[TestMethod]
-		public void ScoreFourOfAKind_FourOfAKindRolled_ReturnsSumOfFourOfAKind()
-		{
-			// arrange
 			var category = new CategoryFourOfAKind();
-
-			// act
-			var result = _yahtzee.Score("2,2,2,2,5", category);
-
-			// assert
-			Assert.AreEqual(8, result);
+			Assert.AreEqual(0, _yahtzee.Score("1,2,3,4,5", category));
+			Assert.AreEqual(4, _yahtzee.Score("1,1,1,1,5", category));
+			Assert.AreEqual(4, _yahtzee.Score("1,1,1,1,1", category));
+			Assert.AreEqual(24, _yahtzee.Score("6,6,6,6,5", category));
 		}		
-		
-		[TestMethod]
-		public void ScoreFourOfAKind_FourOfAKindNotRolled_ReturnsZero()
-		{
-			// arrange
-			var category = new CategoryFourOfAKind();
-
-			// act
-			var result = _yahtzee.Score("2,2,2,5,5", category);
-
-			// assert
-			Assert.AreEqual(0, result);
-		}
 
 		[TestMethod]
-		public void ScoreSmallStraight_SmallStraightRolled_ReturnsSum()
+		public void ScoreSmallStraight()
 		{
-			// arrange
 			var category = new CategorySmallStraight();
 
-			// act
-			var result = _yahtzee.Score("1,2,3,4,5", category);
-
-			// assert
-			Assert.AreEqual(15, result);
-		}
-		
-		[TestMethod]
-		public void ScoreSmallStraight_SmallStraightNotRolled_ReturnsZero()
-		{
-			// arrange
-			var category = new CategorySmallStraight();
-
-			// act
-			var result = _yahtzee.Score("1,2,3,6,5", category);
-
-			// assert
-			Assert.AreEqual(0, result);
+			Assert.AreEqual(0, _yahtzee.Score("2,3,4,5,6", category));
+			Assert.AreEqual(15, _yahtzee.Score("1,2,3,4,5", category));
 		}
 
 		[TestMethod]
-		public void ScoreLargeStraight_LargeStraightRolled_ReturnsSum()
+		public void ScoreLargeStraight()
 		{
-			// arrange
 			var category = new CategoryLargeStraight();
-
-			// act
-			var result = _yahtzee.Score("2,3,4,5,6", category);
-
-			// assert
-			Assert.AreEqual(20, result);
+			Assert.AreEqual(0, _yahtzee.Score("1,2,3,4,5", category));
+			Assert.AreEqual(20, _yahtzee.Score("2,3,4,5,6", category));
 		}		
-		
-		[TestMethod]
-		public void ScoreLargeStraight_LargeStraightNotRolled_ReturnsZero()
-		{
-			// arrange
-			var category = new CategoryLargeStraight();
-
-			// act
-			var result = _yahtzee.Score("2,3,4,6,6", category);
-
-			// assert
-			Assert.AreEqual(0, result);
-		}
 
 		[TestMethod]
-		public void ScoreFullHouse_FullHouseRolled_ReturnsSum()
+		public void ScoreFullHouse()
 		{
-			// arrange
 			var category = new CategoryFullHouse();
-
-			// act
-			var result = _yahtzee.Score("1,1,2,2,2", category);
-			
-			// assert
-			Assert.AreEqual(8, result);
+			Assert.AreEqual(0, _yahtzee.Score("1,1,1,1,1", category));
+			Assert.AreEqual(0, _yahtzee.Score("1,2,2,2,2", category));
+			Assert.AreEqual(0, _yahtzee.Score("1,2,2,3,3", category));
+			Assert.AreEqual(8, _yahtzee.Score("1,1,2,2,2", category));
+			Assert.AreEqual(28, _yahtzee.Score("6,6,5,5,6", category));
 		}		
-		
-		[TestMethod]
-		public void ScoreFullHouse_FullHouseNotRolled_ReturnsZero()
-		{
-			// arrange
-			var category = new CategoryFullHouse();
-
-			// act
-			var result = _yahtzee.Score("1,1,4,2,2", category);
-			
-			// assert
-			Assert.AreEqual(0, result);
-		}
 
 		[TestMethod]
-		public void ScoreChance_ReturnsSum()
+		public void ScoreChance()
 		{
-			// arrange
 			var category = new CategoryChance();
-
-			// act
-			var result = _yahtzee.Score("1,1,3,3,6", category);
-
-			// assert
-			Assert.AreEqual(14, result);
+			Assert.AreEqual(5, _yahtzee.Score("1,1,1,1,1", category));
+			Assert.AreEqual(14, _yahtzee.Score("1,1,3,3,6", category));
+			Assert.AreEqual(30, _yahtzee.Score("6,6,6,6,6", category));
 		}
 
 		[TestMethod]
-		public void ScoreYathzee_YahtzeeRolled_ReturnsYahtzeeSum()
+		public void ScoreYathzee()
 		{
-			// arrange
 			var category = new CategoryYahtzee();
-
-			// act
-			var result = _yahtzee.Score("1,1,1,1,1", category);
-			
-			// assert
-			Assert.AreEqual(50, result);
+			Assert.AreEqual(0, _yahtzee.Score("2,1,1,1,1", category));
+			Assert.AreEqual(50, _yahtzee.Score("6,6,6,6,6", category));
+			Assert.AreEqual(50, _yahtzee.Score("1,1,1,1,1", category));
 		}	
-		
-		[TestMethod]
-		public void ScoreYathzee_YahtzeeNotRolled_ReturnsZero()
-		{
-			// arrange
-			var category = new CategoryYahtzee();
-
-			// act
-			var result = _yahtzee.Score("1,1,1,1,2", category);
-			
-			// assert
-			Assert.AreEqual(0, result);
-		}
 
 		[TestMethod]
-		public void ScoreMax_YaztzeeRolled_ReturnsYahtzeeScore()
+		public void ScoreMax()
 		{
-			// arrange
-
-			// act
-			
-
-			// assert
 			Assert.AreEqual(50, _yahtzee.ScoreMax("1,1,1,1,1")); // Yatzee
 			Assert.AreEqual(25, _yahtzee.ScoreMax("6,6,6,6,1")); // Chance
-		
 		}
 
 	}
