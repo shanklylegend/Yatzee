@@ -1,5 +1,5 @@
-C:\Kode\Yatzee\Yatzee\obj\Debug\YahtzeeGameTests.csprojResolveAssemblyReference.cache
 C:\Kode\Yatzee\Yatzee\bin\Debug\Yahtzee.dll
 C:\Kode\Yatzee\Yatzee\bin\Debug\Yahtzee.pdb
+C:\Kode\Yatzee\Yatzee\obj\Debug\YahtzeeTests.csprojResolveAssemblyReference.cache
 C:\Kode\Yatzee\Yatzee\obj\Debug\Yahtzee.dll
 C:\Kode\Yatzee\Yatzee\obj\Debug\Yahtzee.pdb

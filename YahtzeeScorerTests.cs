@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yahtzee;
 
-namespace Yatzee
+namespace Yahtzee
 {
 	[TestClass]
 	public class YahtzeeScorerTests
